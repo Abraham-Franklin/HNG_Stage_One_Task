@@ -1,0 +1,48 @@
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="{% url 'hello' %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="name" placeholder="Please enter your name...">
+        <br>
+        <input type="text" name="city" placeholder="Please enter your city...">
+
+        <button name="submitform">submit</button>
+    </form>
+    <div>
+        {% if name %}
+            <p>{{ greeting }}</p>
+            <p>Temperature: {{ temperature }}°C</p>
+            <p>Weather: {{ description }}</p>
+            <p>Greeting:  "Hello, {{name}}!, the temperature is {{temperature}} degrees Celcius in {{location}}"</p>
+        {% endif %}
+    </div>
+</body>
+</html> {% endcomment %}
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello</title>
+</head>
+<body>
+    <h1>API CALL</h1>
+    <div>
+        <p>{{ greeting }}</p>
+        <p>Temperature: {{ temperature }}°C</p>
+        <p>Weather: {{ description }}</p>
+        <p>Location: {{ location }}</p>
+    </div>
+</body>
+</html>

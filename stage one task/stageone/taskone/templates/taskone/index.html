@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Data</title>
+</head>
+<body>
+    <form action="{% url 'hello' %}" method="get">
+        {% comment %} {% csrf_token %} {% endcomment %}
+        <label for="name">NAME:
+            <input type="text" name="name" id="name" placeholder="Please enter your name...">
+        </label>
+        <br>
+        <label for="city">CITY:
+            <input type="text" name="city" id="city" placeholder="Please enter your city...">
+        </label>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
