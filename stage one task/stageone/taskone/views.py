@@ -67,11 +67,23 @@ def hello(request):
 
     if 'city' in ipapi_data and 'country' in ipapi_data:
         location = f"{ipapi_data['city']}, {ipapi_data['country']}"
+        city = ipapi_data['city']
     else:
         location = "Unknown location"
+        city = "Unknown"
 
     visitor_name = request.GET.get('visitor_name', 'Visitor')
-    temperature = 11  # Static temperature for demonstration
+
+    api_key = "85971a067dd524d514061870d1d1502c"
+    weather_url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric"
+    weather_response = requests.get(weather_url)
+    weather_data = weather_response.json()
+
+    if weather_data.get('cod') != 404:
+        temperature = weather_data['main']['temp']
+    else:
+        temperature = "unknown"
+
     greeting = f"Hello, {visitor_name}!, the temperature is {temperature} degrees Celsius in {location}"
 
     context = {
