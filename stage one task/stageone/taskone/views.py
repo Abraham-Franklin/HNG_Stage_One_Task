@@ -1,37 +1,19 @@
-from django.shortcuts import render
+
 from django.http import JsonResponse
-import requests
-from rest_framework.decorators import api_view
 
-def getData(request):
-    return render(request, 'taskone/index.html')
-
-@api_view(['GET'])
 def hello(request):
-    name = request.GET.get('name')
-    city = request.GET.get('city')
+    visitor_name = request.GET.get('visitor_name', 'Guest')
+    city = "New York"  # Default city if not provided in query parameters
     client_ip = request.META.get('REMOTE_ADDR', '127.0.0.1')
 
-    api_key = "85971a067dd524d514061870d1d1502c"
-    url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric"
+    temperature = 11
+    location = city
+    greeting = f"Hello, {visitor_name}!, the temperature is {temperature} degrees Celsius in {location}"
 
-    response = requests.get(url)
-    result = response.json()
-
-    context = {}
-    if result.get('cod') != "404":
-        temperature = result['main']['temp']
-        description = result['weather'][0]['description']
-        location = result['name']  # Use result['name'] for city name
-
-        context['temperature'] = temperature
-        context['description'] = description
-        context['location'] = location
-    else:
-        context['temperature'] = 'unknown'
-        context['description'] = 'unknown'
-        context['location'] = 'unknown'
-
-    context['greeting'] = f"Hello, {name}!, the temperature is {context['temperature']} degrees Celsius in {context['location']}."
+    context = {
+        "client_ip": client_ip,
+        "location": location,
+        "greeting": greeting
+    }
 
     return JsonResponse(context)
